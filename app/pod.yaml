@@ -13,11 +13,26 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-test-pod
+  name: break-after-delay
   namespace: broken-pod
 spec:
   containers:
-  - name: nginx-broken
-    image: ngin:latest
-    ports:
-    - containerPort: 8080
+    - name: sleeper
+      image: bash:5.2
+      command: ["/bin/bash", "-c"]
+      args:
+        - |
+          echo "Pod running... will fail in 30 seconds";
+          sleep 30;
+          echo "Simulated failure";
+          exit 1
+      readinessProbe:
+        exec:
+          command: ["bash", "-c", "test -f /tmp/healthy"]
+        initialDelaySeconds: 5
+        periodSeconds: 5
+      livenessProbe:
+        exec:
+          command: ["bash", "-c", "test -f /tmp/healthy"]
+        initialDelaySeconds: 10
+        periodSeconds: 5
