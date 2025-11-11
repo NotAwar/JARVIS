@@ -17,7 +17,7 @@ metadata:
   namespace: broken-pod
 spec:
   containers:
-  - name: ngin
-    image: nginx:latest
+  - name: nginx-broken
+    image: ngin:latest
     ports:
     - containerPort: 8080
