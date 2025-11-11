@@ -1,11 +1,23 @@
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: nginx-test-pod
-      namespace: podinfo
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test-pod
+  namespace: podinfo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test-pod
+  namespace: broken-pod
+spec:
+  containers:
+  - name: ngin
+    image: nginx:latest
+    ports:
+    - containerPort: 8080
